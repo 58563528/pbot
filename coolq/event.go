@@ -104,6 +104,16 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 	if gm == nil {
 		return
 	}
+
+	if (m.GroupCode == 1030908174 || m.GroupCode == 586088974) && cqm == "妹子图" {
+		var elem []message.IMessageElement
+		elem = bot.ConvertStringMessage("[CQ:image,file=file:///data/img/"+"1.jpeg", true)
+
+		mid := bot.SendGroupMessage(1030908174, &message.SendingMessage{Elements: elem})
+		if mid == -1 {
+			log.Error(100, "SEND_MSG_API_ERROR", "请参考 go-cqhttp 端输出")
+		}
+	}
 	gm["message_id"] = id
 	bot.dispatchEventMessage(gm)
 }
