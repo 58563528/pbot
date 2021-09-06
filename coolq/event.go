@@ -106,9 +106,11 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 		return
 	}
 
-	if m.GroupCode == 1030908174 || m.GroupCode == 586088974 || m.GroupCode == 567512749 {
+	if m.GroupCode == 1030908174 || m.GroupCode == 586088974 || m.GroupCode == 567512749 ||
+		m.GroupCode == 324597273 {
 		var flag = false
 		var elem []message.IMessageElement
+		cqm = strings.TrimSpace(cqm)
 		if cqm == "历史上的今天" {
 			historyStr := thri_api.HistoryToday()
 			elem = bot.ConvertStringMessage(historyStr, true)
