@@ -2,6 +2,7 @@ package coolq
 
 import (
 	"encoding/hex"
+	"github.com/Mrs4s/go-cqhttp/thri_api"
 	"os"
 	"path"
 	"strconv"
@@ -105,14 +106,19 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 		return
 	}
 
-	if (m.GroupCode == 1030908174 || m.GroupCode == 586088974 ||
-		m.GroupCode == 567512749) && cqm == "妹子图" {
+	if m.GroupCode == 1030908174 || m.GroupCode == 586088974 || m.GroupCode == 567512749 {
 		var elem []message.IMessageElement
-		d := map[string]string{
-			"file": "file:///data/img/1.jpeg",
+		if cqm == "历史上的今天" {
+			historyStr := thri_api.HistoryToday()
+			elem = bot.ConvertStringMessage(historyStr, true)
+		} else if cqm == "妹子图" {
+			d := map[string]string{
+				"file": "file:///data/img/1.jpeg",
+			}
+			img, _ := bot.makeImageOrVideoElem(d, false, false)
+			elem = append(elem, img)
 		}
-		img, _ := bot.makeImageOrVideoElem(d, false, false)
-		elem = append(elem, img)
+
 		botMsg := &message.SendingMessage{Elements: elem}
 		mid := bot.SendGroupMessage(m.GroupCode, botMsg)
 		cqm = ToStringMessage(botMsg.Elements, m.GroupCode, true)
