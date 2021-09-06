@@ -107,26 +107,32 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 	}
 
 	if m.GroupCode == 1030908174 || m.GroupCode == 586088974 || m.GroupCode == 567512749 {
+		var flag = false
 		var elem []message.IMessageElement
 		if cqm == "历史上的今天" {
 			historyStr := thri_api.HistoryToday()
 			elem = bot.ConvertStringMessage(historyStr, true)
+			flag = true
 		} else if cqm == "妹子图" {
 			d := map[string]string{
 				"file": "file:///data/img/1.jpeg",
 			}
 			img, _ := bot.makeImageOrVideoElem(d, false, false)
 			elem = append(elem, img)
+			flag = true
 		}
 
-		botMsg := &message.SendingMessage{Elements: elem}
-		mid := bot.SendGroupMessage(m.GroupCode, botMsg)
-		cqm = ToStringMessage(botMsg.Elements, m.GroupCode, true)
+		if flag {
+			botMsg := &message.SendingMessage{Elements: elem}
+			mid := bot.SendGroupMessage(m.GroupCode, botMsg)
+			cqm = ToStringMessage(botMsg.Elements, m.GroupCode, true)
 
-		if mid == -1 {
-			log.Error(100, "SEND_MSG_API_ERROR", "请参考 go-cqhttp 端输出")
+			if mid == -1 {
+				log.Error(100, "SEND_MSG_API_ERROR", "请参考 go-cqhttp 端输出")
+			}
+			log.Infof("机器人发送到群 %v(%v) 消息: %v (%v)", m.GroupName, m.GroupCode, cqm, mid)
 		}
-		log.Infof("机器人发送到群 %v(%v) 消息: %v (%v)", m.GroupName, m.GroupCode, cqm, mid)
+
 	}
 	gm["message_id"] = id
 	bot.dispatchEventMessage(gm)
