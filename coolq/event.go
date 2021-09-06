@@ -105,18 +105,22 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 		return
 	}
 
-	if (m.GroupCode == 1030908174 || m.GroupCode == 586088974) && cqm == "妹子图" {
+	if (m.GroupCode == 1030908174 || m.GroupCode == 586088974 ||
+		m.GroupCode == 567512749) && cqm == "妹子图" {
 		var elem []message.IMessageElement
 		d := map[string]string{
 			"file": "file:///data/img/1.jpeg",
 		}
 		img, _ := bot.makeImageOrVideoElem(d, false, false)
 		elem = append(elem, img)
+		botMsg := &message.SendingMessage{Elements: elem}
+		mid := bot.SendGroupMessage(m.GroupCode, botMsg)
+		cqm = ToStringMessage(botMsg.Elements, m.GroupCode, true)
 
-		mid := bot.SendGroupMessage(m.GroupCode, &message.SendingMessage{Elements: elem})
 		if mid == -1 {
 			log.Error(100, "SEND_MSG_API_ERROR", "请参考 go-cqhttp 端输出")
 		}
+		log.Infof("机器人发送到群 %v(%v) 消息: %v (%v)", m.GroupName, m.GroupCode, cqm, mid)
 	}
 	gm["message_id"] = id
 	bot.dispatchEventMessage(gm)
