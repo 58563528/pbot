@@ -122,6 +122,10 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 			img, _ := bot.makeImageOrVideoElem(d, false, false)
 			elem = append(elem, img)
 			flag = true
+		} else if cqm == "毒鸡汤" {
+			povertyPornStr := thri_api.PovertyPorn()
+			elem = bot.ConvertStringMessage(povertyPornStr, true)
+			flag = true
 		}
 
 		if flag {
