@@ -10,7 +10,7 @@ const (
 )
 
 func PovertyPorn() string {
-	res, err := http.Get(HistoryTodayURL)
+	res, err := http.Get(PovertyPornURL)
 	if err != nil {
 		return "毒鸡汤接口错误"
 	}
