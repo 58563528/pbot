@@ -3,6 +3,7 @@ package coolq
 import (
 	"encoding/hex"
 	"github.com/Mrs4s/go-cqhttp/thri_api"
+	"github.com/Mrs4s/go-cqhttp/utils"
 	"os"
 	"path"
 	"strconv"
@@ -111,7 +112,12 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 		var flag = false
 		var elem []message.IMessageElement
 		cqm = strings.TrimSpace(cqm)
-		if cqm == "历史上的今天" {
+
+		if strings.Contains(cqm, "[CQ:redbag") {
+			redBagStr := utils.GetRedBagStr(cqm)
+			elem = bot.ConvertStringMessage(redBagStr, true)
+			flag = true
+		} else if cqm == "历史上的今天" {
 			historyStr := thri_api.HistoryToday()
 			elem = bot.ConvertStringMessage(historyStr, true)
 			flag = true
