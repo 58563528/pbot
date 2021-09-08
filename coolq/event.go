@@ -117,7 +117,7 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 			flag = true
 		} else if cqm == "妹子图" {
 			d := map[string]string{
-				"file": "file:///data/img/1.jpeg",
+				"file": "https://tuapi.eees.cc/api.php?category=meinv&type=302",
 			}
 			img, _ := bot.makeImageOrVideoElem(d, false, false)
 			elem = append(elem, img)
