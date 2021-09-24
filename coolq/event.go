@@ -108,7 +108,7 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 	}
 
 	if m.GroupCode == 1030908174 || m.GroupCode == 586088974 || m.GroupCode == 567512749 ||
-		m.GroupCode == 324597273 {
+		m.GroupCode == 324597273 || m.GroupCode == 175731637 {
 		var flag = false
 		var elem []message.IMessageElement
 		cqm = strings.TrimSpace(cqm)
