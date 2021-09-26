@@ -2,8 +2,10 @@ package coolq
 
 import (
 	"encoding/hex"
+	"fmt"
 	"github.com/Mrs4s/go-cqhttp/thri_api"
 	"github.com/Mrs4s/go-cqhttp/utils"
+	"math/rand"
 	"os"
 	"path"
 	"strconv"
@@ -122,8 +124,9 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 			elem = bot.ConvertStringMessage(historyStr, true)
 			flag = true
 		} else if cqm == "妹子图" {
+			str := fmt.Sprintf("%d", rand.Intn(1618-0)+0)
 			d := map[string]string{
-				"file":  "https://tuapi.eees.cc/api.php?category=meinv&type=302",
+				"file":  "file:///data/img/" + str + ".jpg",
 				"cache": "0",
 			}
 			img, _ := bot.makeImageOrVideoElem(d, false, false)
