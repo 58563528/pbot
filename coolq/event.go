@@ -124,7 +124,7 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 			elem = bot.ConvertStringMessage(historyStr, true)
 			flag = true
 		} else if cqm == "妹子图" {
-			str := fmt.Sprintf("%d", rand.Intn(1618-0)+0)
+			str := fmt.Sprintf("%d", rand.Intn(155434-0)+0)
 			d := map[string]string{
 				"file":  "file:///data/img/" + str + ".jpg",
 				"cache": "0",
