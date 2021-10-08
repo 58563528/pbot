@@ -2,10 +2,8 @@ package coolq
 
 import (
 	"encoding/hex"
-	"fmt"
 	"github.com/Mrs4s/go-cqhttp/thri_api"
 	"github.com/Mrs4s/go-cqhttp/utils"
-	"math/rand"
 	"os"
 	"path"
 	"strconv"
@@ -124,13 +122,15 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 			elem = bot.ConvertStringMessage(historyStr, true)
 			flag = true
 		} else if cqm == "妹子图" {
-			str := fmt.Sprintf("%d", rand.Intn(155434-0)+0)
-			d := map[string]string{
-				"file": "file:///data/img/" + str + ".jpg",
-				//"cache": "0",
-			}
-			img, _ := bot.makeImageOrVideoElem(d, false, false)
-			elem = append(elem, img)
+			//str := fmt.Sprintf("%d", rand.Intn(155434-0)+0)
+			//d := map[string]string{
+			//	"file": "file:///data/img/" + str + ".jpg",
+			//	//"cache": "0",
+			//}
+			//img, _ := bot.makeImageOrVideoElem(d, false, false)
+			//elem = append(elem, img)
+			tempStr := "不必时时怀念妹子图，也不要指望妹子图回来，妹子图离开以后，你们就是妹子图，妹子图万岁！"
+			elem = bot.ConvertStringMessage(tempStr, true)
 			flag = true
 		} else if cqm == "毒鸡汤" {
 			povertyPornStr := thri_api.PovertyPorn()
